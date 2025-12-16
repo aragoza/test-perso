@@ -21,9 +21,9 @@ int wait_for_line(void)
 
     printf("$ ");
 
-    if (read = getline(&buffer, &len, stdin) != -1)
+    if ((read = getline(&buffer, &len, stdin)) != -1)
     {
-        printf("Line length: %zu\n", read);
+        printf("Line length: %lu\n", read);
         printf("Content: %s", buffer);
     }
 

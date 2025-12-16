@@ -13,29 +13,25 @@
  *
  */
 
-int main(int argc, char *argv[])
+
+int tokenize_a_sentence(int number_arg, char *arguments[])
 {
-    char *str, *my_ptr;
+    char *my_ptr;
+    char str[1024] = "";
     int i;
 
-    if (argc == 0)
-        return (-1);
-
-    while (argv[i] != NULL)
+    for (i = 1; i < number_arg; i++)
     {
-        strcat(str, argv[i]);
-        i++;
+        strcat(str, arguments[i]);
+        strcat(str, " ");
     }
-    
 
-    my_ptr = strtok(str, " ");
+    my_ptr = strtok(str, "=");
 
-    i = 0;
     while (my_ptr != NULL)
     {
-        my_ptr = strtok(NULL, " ");
         printf("Token : %s\n", my_ptr);
-        i++;
+        my_ptr = strtok(NULL, "=");
     }
 
     return (0);
