@@ -1,7 +1,10 @@
 #include "total.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 /**
  *
@@ -11,29 +14,21 @@
  *
  *
  *
+ *
 */
 
-int wait_for_line(void)
+char *wait_for_line(void)
 {
-    char *buffer;
-    size_t len;
-    ssize_t read;
+    char *buffer = NULL;
+    size_t len = 0;
 
-    printf("$ ");
+    write(1, "$ ", 2);
 
-    if ((read = getline(&buffer, &len, stdin)) != -1)
-    {
-        printf("Line length: %lu\n", read);
-        printf("Content: %s", buffer);
-    }
-
-    else
+    if (getline(&buffer, &len, stdin) == -1)
     {
         free(buffer);
-        return (-1);
+        return (NULL);
     }
 
-    free(buffer);
-
-    return (0);
+    return (buffer);
 }

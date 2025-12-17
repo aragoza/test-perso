@@ -6,15 +6,11 @@
  *
  * Return: Always 0.
  */
+
 int main(void)
 {
-    pid_t my_pid, my_ppid;
-
-    my_pid = getpid();
-    printf("PID : %u\n", my_pid);
-
-    my_ppid = getppid();
-    printf("PPID : %u\n", my_ppid);
-
+    pid_t pid;
+    pid = getpid();
+    printf("Current Process ID: %d\n", pid);
     return (0);
 }

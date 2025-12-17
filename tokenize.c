@@ -14,25 +14,58 @@
  */
 
 
-int tokenize_a_sentence(int number_arg, char *arguments[])
+char **tokenize_a_sentence(char *line, char *delim)
 {
-    char *my_ptr;
-    char str[1024] = "";
-    int i;
+    char **argv;
+    char *token;
+    int i = 0, count = 0;
+    char *tmp;
 
-    for (i = 1; i < number_arg; i++)
+    if (!line || !delim)
+        return (NULL);
+
+
+    tmp = strdup(line);
+    if (!tmp)
+        return (NULL);
+
+    token = strtok(tmp, delim);
+    while (token)
     {
-        strcat(str, arguments[i]);
-        strcat(str, " ");
+        count++;
+        token = strtok(NULL, delim);
     }
+    free(tmp);
 
-    my_ptr = strtok(str, "=");
+    argv = malloc(sizeof(char *) * (count + 1));
+    if (!argv)
+        return (NULL);
 
-    while (my_ptr != NULL)
+    token = strtok(line, delim);
+    while (token)
     {
-        printf("Token : %s\n", my_ptr);
-        my_ptr = strtok(NULL, "=");
+        argv[i++] = strdup(token);
+        token = strtok(NULL, delim);
     }
+    argv[i] = NULL;
 
-    return (0);
+    return (argv);
+}
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+void free_tokens(char **argv)
+{
+    int i = 0;
+
+    while (argv[i])
+        free(argv[i++]);
+    free(argv);
 }
